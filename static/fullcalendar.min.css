@@ -1,0 +1,40 @@
+/* Stylizacja kalendarza */
+#calendar {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  /* Stylizacja wydarzeń w kalendarzu */
+  .fc-event {
+    background-color: #3788d8;
+    border-color: #3788d8;
+    color: #fff;
+  }
+  
+  /* Stylizacja tytułu wydarzenia */
+  .fc-title {
+    font-size: 16px;
+  }
+  
+  /* Stylizacja przycisków nawigacji w kalendarzu */
+  .fc-button {
+    background-color: #3788d8;
+    color: #fff;
+    border-color: #3788d8;
+  }
+  
+  .fc-button:hover {
+    background-color: #225599;
+    color: #fff;
+    border-color: #225599;
+  }
+  
+  /* Stylizacja dni w widoku miesięcznym */
+  .fc-day {
+    padding: 10px;
+  }
+  
+  .fc-day:hover {
+    background-color: #f0f0f0;
+  }
+  

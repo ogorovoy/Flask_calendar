@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+    
+</head>
+<body>
+    <div id="calendar"></div>
+    <form id="eventForm">
+        <input type="text" id="title" placeholder="Title">
+        <input type="text" id="startDate" placeholder="Start Date">
+        <input type="text" id="endDate" placeholder="End Date">
+        <button type="submit">Add Event</button>
+    </form>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calendarEl = document.getElementById('calendar');
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: '/get_events'
+            });
+            calendar.render();
+
+            const eventForm = document.getElementById('eventForm');
+            eventForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const title = document.getElementById('title').value;
+                const startDate = document.getElementById('startDate').value;
+                const endDate = document.getElementById('endDate').value;
+
+                const eventData = {
+                    title: title,
+                    start: startDate,
+                    end: endDate
+                };
+
+                fetch('/add_event', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(eventData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Event added successfully:', data);
+                    calendar.refetchEvents();
+                })
+                .catch(error => {
+                    console.error('Error adding event:', error);
+                });
+
+                eventForm.reset();
+            });
+        });
+    </script>
+</body>
+</html>
